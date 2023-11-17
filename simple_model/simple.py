@@ -62,7 +62,6 @@ class MyDeepWalk(object):
         model = self.word2vec()
         # print(model.wv.key_to_index)
         for item in start_nodes:
-            # print(model.wv.most_similar(positive=[item], topn=3))  # 相似度前三
             # print("representation of paper_{} is:\n {} ".format(item, model.wv[item]))  # 节点的嵌入表示
             # print("vector of paper_{} max: {}, min: {}".format(item, model.wv[item].max(), model.wv[item].min()))
             print("most similarity of paper_{} top {} is {}".format(item, n, model.wv.most_similar(positive=[item], topn=n)))

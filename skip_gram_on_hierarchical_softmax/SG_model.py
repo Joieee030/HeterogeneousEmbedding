@@ -13,8 +13,8 @@ class SkipGramModel(nn.Module):
         self._init_emb()
 
     def _init_emb(self):
-        init_range = 0.5 / self.emb_dimension
-        self.w_embeddings.weight.data.uniform_(-init_range, init_range)
+        ini_trange = 0.5 / self.emb_dimension
+        self.w_embeddings.weight.data.uniform_(-ini_trange, ini_trange)
         self.v_embeddings.weight.data.uniform_(-0, 0)
 
     def forward(self, pos_w, pos_v, neg_w, neg_v):
@@ -35,24 +35,9 @@ class SkipGramModel(nn.Module):
 
     def save_embedding(self, id2word, file_name):
         embedding = self.w_embeddings.weight.data.numpy()
-        fout = open(file_name, 'w')
-        fout.write('%d %d\n' % (len(id2word), self.emb_dimension))
+        file_out = open(file_name, 'w')
+        file_out.write('%d %d\n' % (len(id2word), self.emb_dimension))
         for wid, w in id2word.items():
             e = embedding[wid]
             e = ' '.join(map(lambda x: str(x), e))
-            fout.write('%s %s\n' % (w, e))
-
-def test():
-    model = SkipGramModel(100, 10)
-    id2word = dict()
-    for i in range(100):
-        id2word[i] = str(i)
-    pos_w = [0, 0, 1, 1, 1]
-    pos_v = [1, 2, 0, 2, 3]
-    neg_v = [[23, 42, 32], [32, 24, 53], [32, 24, 53], [32, 24, 53], [32, 24, 53]]
-    model.forward(pos_w, pos_v, neg_v)
-    model.save_embedding(id2word, 'test.txt')
-
-
-if __name__ == '__main__':
-    test()
+            file_out.write('%s %s\n' % (w, e))
